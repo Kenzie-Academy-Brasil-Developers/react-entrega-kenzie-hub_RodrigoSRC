@@ -1,18 +1,24 @@
-import { useState } from 'react'
 import { RoutesMain } from './routes/RoutesMain'
 import { GlobalStyles } from './styles/global'
 import { GlobalReset } from './styles/reset'
+import { UserContext } from './providers/UserContext'
+import { useContext } from 'react'
 
 function App() {
-
-  const [user, setUser] = useState(null)
+  const { loading } = useContext(UserContext)
 
   return (
     <div className='App'>
       <GlobalReset />
       <GlobalStyles />
 
-      <RoutesMain setUser={setUser} user={user}/>
+
+      {loading ? <p>Carregando...</p> : <RoutesMain />}  
+
+
+
+
+
     </div>
   )
 }

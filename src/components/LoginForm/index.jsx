@@ -8,10 +8,15 @@ import { loginFormSchema } from "./loginFormSchema";
 import styles from "./style.module.css";
 import { StyledButton } from "../Button/Button";
 
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserContext";
+
 import { StyledParagraph, StyledTitle } from "../../styles/typography";
 
 
-export const LoginForm = ({setUser}) => {
+export const LoginForm = () => {
+
+    const { userLogin } = useContext(UserContext);
 
     const { 
         register, 
@@ -21,22 +26,6 @@ export const LoginForm = ({setUser}) => {
         resolver: zodResolver(loginFormSchema)
     });
 
-    const navigatete = useNavigate()
-
-    const userLogin = async (formData) => {
-        try{
-            const {data} = await api.post('/sessions', formData);
-            localStorage.setItem("@TOKEN", data.token)
-            localStorage.setItem("@USERID", data.user.id)
-
-            setUser(data.user)
-            console.log("Login efetuado")
-
-            navigatete("/home");
-        } catch(error) {
-            console.log(error)
-        } 
-    }
 
     const submit = (formData) => {
         userLogin(formData)

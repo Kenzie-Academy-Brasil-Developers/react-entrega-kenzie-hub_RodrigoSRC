@@ -2,15 +2,14 @@ import { StyledTitle, StyledParagraph } from "../../styles/typography"
 import { StyledContainer } from "./style"
 import { Link } from "react-router-dom";
 
-export const HomePage = ({user}) => {
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserContext";
 
-    const userLogout = () => {
-        localStorage.removeItem("@TOKEN")
-        localStorage.removeItem("@USERID")
-    }
+export const HomePage = () => {
+
+    const { user, userLogout } = useContext(UserContext)
 
     return(
-
         <StyledContainer>
             <div className="formBox">
 
@@ -28,11 +27,16 @@ export const HomePage = ({user}) => {
                 </section>
 
 
-                <main>
-                        <StyledTitle>Que pena! Estamos em desenvolvimento :(</StyledTitle>
+                {user.techs.lenght === 0 ? <main>
+                <StyledTitle>Que pena! Estamos em desenvolvimento :(</StyledTitle>
                         
-                        <StyledParagraph>Nossa aplicação está em desenvolvimento, em breve teremos novidades</StyledParagraph>
-                </main>
+                <StyledParagraph>Nossa aplicação está em desenvolvimento, em breve teremos novidades</StyledParagraph> 
+                </main>: <main>
+                    <p>ue</p>
+                    
+                    </main>}
+
+
 
             </div>
         </StyledContainer>
